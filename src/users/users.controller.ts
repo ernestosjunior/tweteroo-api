@@ -1,4 +1,4 @@
-import { Controller, Post, Body } from '@nestjs/common';
+import { Controller, Post, Body, BadRequestException } from '@nestjs/common';
 import { User } from './user';
 import { UsersService } from './users.service';
 
@@ -7,7 +7,10 @@ export class UsersController {
   constructor(private readonly usersService: UsersService) {}
 
   @Post()
-  async create(@Body() user: User): Promise<User> {
-    return this.usersService.create(user);
+  async create(@Body() { username, avatar }: User): Promise<User> {
+    if (!username || !avatar)
+      throw new BadRequestException('Provide all fields. [username, avatar].');
+
+    return this.usersService.create({ username, avatar });
   }
 }

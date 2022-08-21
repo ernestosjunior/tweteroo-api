@@ -5,27 +5,13 @@ on:
     branches: main
 
 jobs:
-  setup:
-    name: Setup
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v2
-        with:
-          fetch-depth: 0
-
-      - uses: actions/setup-node@v2-beta
-        with:
-          node-version: '12'
-          check-latest: true
-
-      - name: install yarn
-        run: yarn install --prefer-offline
-
   heroku-deploy:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout repository
         uses: actions/checkout@v2
+      - name: install yarn
+        run: yarn install
       - name: Deploy to Heroku
         uses: akhileshns/heroku-deploy@v3.12.12
         with:

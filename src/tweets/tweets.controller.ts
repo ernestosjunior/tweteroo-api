@@ -1,4 +1,10 @@
-import { Controller, Get, Post, Body } from '@nestjs/common';
+import {
+  Controller,
+  Get,
+  Post,
+  Body,
+  BadRequestException,
+} from '@nestjs/common';
 import { Tweet } from './tweet';
 import { TweetsService } from './tweets.service';
 
@@ -12,7 +18,10 @@ export class TweetsController {
   }
 
   @Post()
-  async create(@Body() tweet: Tweet): Promise<Tweet> {
-    return this.tweetsService.create(tweet);
+  async create(@Body() { username, tweet }: Tweet): Promise<Tweet | string> {
+    if (!username || !tweet)
+      throw new BadRequestException('Provide all fields. [username, tweet].');
+
+    return this.tweetsService.create({ username, tweet });
   }
 }

@@ -3,6 +3,4 @@ export default {
   version: '0.0.1',
   description: '',
   author: '',
-  private: true,
-  license: 'UNLICENSED',
 };

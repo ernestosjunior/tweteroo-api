@@ -12,7 +12,7 @@ export class TweetsController {
   }
 
   @Post()
-  async criar(@Body() tweet: Tweet): Promise<Tweet> {
+  async create(@Body() tweet: Tweet): Promise<Tweet> {
     return this.tweetsService.create(tweet);
   }
 }

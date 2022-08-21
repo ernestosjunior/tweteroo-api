@@ -7,21 +7,9 @@ import { User } from './user';
 export class UsersService {
   constructor(@InjectModel(User.name) private userModel: Model<User>) {}
 
-  async listAllUsers(): Promise<User[]> {
-    return this.userModel.find().exec();
-  }
+  async create(user: User): Promise<User> {
+    const userCreated = new this.userModel(user);
 
-  async getUserById(id: string): Promise<User> {
-    return this.userModel.findById(id).exec();
-  }
-
-  async updateUser(id: string, user: User): Promise<User> {
-    return this.userModel.findByIdAndUpdate(id, user).exec();
-  }
-
-  async deleteUser(id: string) {
-    const userRemoved = this.userModel.findOneAndDelete({ _id: id }).exec();
-
-    return (await userRemoved).remove();
+    return userCreated.save();
   }
 }

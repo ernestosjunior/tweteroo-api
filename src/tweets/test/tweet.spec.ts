@@ -1,4 +1,4 @@
-import { Tweet } from './tweet';
+import { Tweet } from '../tweet';
 
 describe('Tweet', () => {
   it('should be defined', () => {

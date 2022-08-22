@@ -14,7 +14,7 @@ export class UsersController {
     try {
       return this.usersService.create({ username, avatar });
     } catch (error) {
-      throw new BadRequestException(error.message);
+      return error.message;
     }
   }
 }

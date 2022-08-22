@@ -8,11 +8,20 @@ import { User } from '../users/user';
 export class TweetsService {
   constructor(
     @InjectModel(Tweet.name) private tweetModel: Model<Tweet>,
-    @InjectModel(Tweet.name) private userModel: Model<User>,
+    @InjectModel(User.name) private userModel: Model<User>,
   ) {}
 
-  async getAll(): Promise<Tweet[]> {
-    return this.tweetModel.find().exec();
+  async getAll(): Promise<any[]> {
+    const tweets = await this.tweetModel.find();
+
+    const data = [];
+
+    for (const tweet of tweets) {
+      const user = await this.userModel.findOne({ username: tweet.username });
+      data.push({ user, tweet });
+    }
+
+    return data;
   }
 
   async create(tweet: Tweet): Promise<Tweet> {

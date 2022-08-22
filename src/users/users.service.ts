@@ -7,10 +7,6 @@ import { User } from './user';
 export class UsersService {
   constructor(@InjectModel(User.name) private userModel: Model<User>) {}
 
-  async getUserByUsername(username: string): Promise<User> {
-    return this.userModel.findOne({ username }).exec();
-  }
-
   async create(user: User): Promise<User> {
     const userCreated = new this.userModel(user);
 

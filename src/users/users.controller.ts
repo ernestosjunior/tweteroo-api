@@ -11,6 +11,10 @@ export class UsersController {
     if (!username || !avatar)
       throw new BadRequestException('Provide all fields. [username, avatar].');
 
-    return this.usersService.create({ username, avatar });
+    try {
+      return this.usersService.create({ username, avatar });
+    } catch (error) {
+      throw new BadRequestException(error.message);
+    }
   }
 }
